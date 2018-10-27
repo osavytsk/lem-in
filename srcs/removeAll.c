@@ -12,47 +12,6 @@
 
 #include "../includes/lemin.h"
 
-static void	removeTwoNext(t_data *its)
-{
-	int	index;
-
-	index = 0;
-	while (its->diff && its->diff[index])
-	{
-		free(its->diff[index]->paths);
-		free(its->diff[index++]);
-	}
-	if (its->diff)
-		free(its->diff);
-}
-
-static void	removeNext(t_data *its)
-{
-	int	index;
-
-	index = 0;
-	while (its->mtx && index < its->size)
-		free(its->mtx[index++]);
-	if (its->mtx)
-		free(its->mtx);
-	index = 0;
-	while (its->allWays && its->allWays[index])
-	{
-		free(its->allWays[index]->path);
-		free(its->allWays[index++]);
-	}
-	if (its->allWays)
-		free(its->allWays);
-	if (its->paths)
-		free(its->paths);
-	index = 0;
-	while (its->ants && its->ants[index])
-		free(its->ants[index++]);
-	if (its->ants)
-		free(its->ants);
-	removeTwoNext(its);
-}
-
 int			removeAll(t_data *its)
 {
 	int index;

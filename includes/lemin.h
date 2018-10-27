@@ -102,6 +102,8 @@ int				outputAntMoves(t_data *its);
 void			outputResult(t_data *its, int turns, int **antMoves);
 void			createAnts(t_data *its, int lst);
 int				removeAll(t_data *its);
+void			removeNext(t_data *its);
+void			removeTwoNext(t_data *its);
 int				findAllPaths(t_data *its, int lst);
 void			getBestWays(t_data *its, int lst);
 void			buildMatrix(t_data *its);

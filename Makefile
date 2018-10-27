@@ -20,8 +20,9 @@ OT		= srcs/output/output
 ADD		= srcs/additional/
 VS		= srcs/visu/visu
 SRCS	= srcs/lemin.c srcs/parseInput.c srcs/findAllPaths.c \
-			srcs/removeAll.c srcs/buildMatrix.c srcs/getBestWays.c \
-			srcs/searchDiff.c srcs/createAnts.c srcs/parseCom.c \
+			srcs/removeNext.c srcs/removeAll.c srcs/buildMatrix.c \
+			srcs/getBestWays.c srcs/searchDiff.c srcs/createAnts.c \
+			srcs/parseCom.c \
             $(ADD)addCommand.c $(ADD)addDiff.c $(ADD)addLink.c \
             $(ADD)addRoom.c $(ADD)addWay.c $(ADD)checkData.c \
             $(ADD)createInfo.c $(ADD)readFile.c \
