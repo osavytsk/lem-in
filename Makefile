@@ -5,56 +5,48 @@
 #                                                     +:+ +:+         +:+      #
 #    By: osavytsk <osavytsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/09/10 20:40:34 by osavytsk          #+#    #+#              #
-#    Updated: 2018/10/27 05:12:44 by osavytsk         ###   ########.fr        #
+#    Created: 2018/10/28 23:37:53 by osavytsk          #+#    #+#              #
+#    Updated: 2018/10/29 01:23:12 by osavytsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= lem-in
-LIB		= libft/
-FLAG	= -Wall -Wextra -Werror
-RM		= rm -Rf
-CC		= gcc
-H		= ./includes/lemin.h
-OT		= srcs/output/output
-ADD		= srcs/additional/
-VS		= srcs/visu/visu
-SRCS	= srcs/lemin.c srcs/parseInput.c srcs/findAllPaths.c \
-			srcs/removeNext.c srcs/removeAll.c srcs/buildMatrix.c \
-			srcs/getBestWays.c srcs/searchDiff.c srcs/createAnts.c \
-			srcs/parseCom.c \
-            $(ADD)addCommand.c $(ADD)addDiff.c $(ADD)addLink.c \
-            $(ADD)addRoom.c $(ADD)addWay.c $(ADD)checkData.c \
-            $(ADD)createInfo.c $(ADD)readFile.c \
-            $(OT)AllWays.c $(OT)File.c $(OT)Result.c $(OT)Paths.c \
-            $(OT)AntMoves.c $(OT)AntMovesAdd.c \
-            $(VS)Diagonal.c $(VS)DiagonalChecks.c $(VS)PutLink.c \
-            $(VS)PutMap.c $(VS)Line.c $(VS)AddDiagonal.c
+NAME = lem-in
+CC = gcc
+RM = rm -Rf
+LIBFT = libftprintf/libft.a
 
-OBJS    = $(SRCS:.c=.o)
+SRC = lemin.c error_manag.c area_manipul.c\
+valid_info.c read_info.c valid_areas.c setup_area.c\
+exploration.c search_ways.c reloc_ant.c valid_binds.c
+
+SRCDIR = srcs/
+SRCS = $(addprefix $(SRCDIR), $(SRC))
+OBJ = $(SRCS:.c=.o)
+HEADERS = libftprintf/get_next_line.h lem_in.h 
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -C $(LIB)
-	@$(CC) $(FLAG) $(OBJS) $(LIB)libft.a -o $(NAME)
-	@printf "Ready: %s\n" $(NAME)
+$(NAME): $(OBJ) $(LIBFT)
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@echo "\r\033[48;5;15;38;5;25m 💣  Ready  $(NAME) \033[0m\033[K"
 
-./srcs/%.o: ./srcs/%.c $(H)
-	@printf "Compiling...\n"
-	@$(CC) $(FLAG) -I $(H) -c $<  -o $@
+$(OBJ): %.o: %.c lem_in.h
+	@$(CC) $(FLAGS) -I. -c $< -o $@
+	@printf "\r\033[38;5;11m 🏳️‍🌈  Making %s     :  %s\033[0m\033[K" $(NAME) "$@"
+
+$(LIBFT):
+	@make -C libftprintf/
 
 clean:
-	@printf "Removing: objects\n"
-	@$(RM) $(OBJS)
-	@make -C $(LIB) clean
-	@printf "Ready\n"
+	@$(RM) $(OBJ)
+	@make -C libftprintf/ clean
+	@echo "\r\033[38;5;202m 🗑  clean $(NAME)\033[0m\033[K"
 
 fclean: clean
-	@printf "Removing: %s libft.a\n" $(NAME)
 	@$(RM) $(NAME)
-	@make -C $(LIB) fclean
-	@printf "Ready\n"
+	@make -C libftprintf/ fclean
+	@echo "\r\033[38;5;196m ❌ fclean $(NAME)\033[0m\033[K"
 
 re: fclean all
 
